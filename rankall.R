@@ -1,4 +1,4 @@
-rankall <- function(outcome, num = "best") {
+rankall <- function(outcome, num) {
   ## Read outcome data
   data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")          ##All are character considered
   data[ ,11]<-as.numeric(data[ ,11])          ##Heart attack
@@ -28,7 +28,7 @@ rankall <- function(outcome, num = "best") {
    
    hname<-list[ ,1]
    outcome<-list[ ,3]
-   orderlist<-list[order(outcome,hname,decreasing=FALSE)]
+   orderlist<-list[order(outcome,hname,decreasing=FALSE), ]
    if(num=="best"){
      select<-orderlist[1, ]
      rank<-rbind(rank,select)
@@ -39,9 +39,7 @@ rankall <- function(outcome, num = "best") {
    }
   }
   
-  ##minimum<-min(list[ ,3])
-  
-  ## Return a data frame with the hospital names and the
-  ## (abbreviated) state name
-
+  ## Return a data frame with the hospital names and the (abbreviated) state name
+  result<-rank[ ,c(1,2)]
+  result
 }
